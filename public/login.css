@@ -1,0 +1,106 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+   
+}
+
+/* Body and Container */
+body {
+    background-image: url("/BG1.jpeg"); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    height: 100vh; 
+    padding: 20px;
+}
+
+
+/* Heading */
+h2 {
+    position: absolute;
+    top: 70px;
+    font-size: 42px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Form Container */
+form {
+    max-width: 400px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 80px;
+    transition: transform 0.3s ease;
+    margin-left: 40px;
+}
+
+/* form:hover {
+    transform: scale(1.02);
+} */
+
+/* Input Fields */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Submit Button */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff006a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 12px;
+}
+
+input[type="submit"]:hover {
+    background-color: #f5074b;
+    transform: scale(1.03);
+}
+
+/* Sign Up Link */
+.signup-link {
+    color: #030303;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 17px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #370214;
+    text-decoration: underline;
+    transform: scale(1.05);
+}

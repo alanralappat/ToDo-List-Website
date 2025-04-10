@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="/todo.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div id="usernameTitle" class="title">Welcome back, User</div>
+      <button id="logoutButton" class="logout-button">Logout -></button>
+    </div>
+  </nav>
+
+  <div class="app">
+    <div class="todo-container">
+      <h1>My To-Do List</h1>
+      <div class="task-input">
+        <input type="text" id="taskTitle" placeholder="Enter title" required />
+        <input type="text" id="taskDescription" placeholder="Enter description" />
+        <input type="date" id="taskDeadline" required />
+        <input type="text" id="taskTags" placeholder="Enter tags, sep by commas" />
+        <select id="taskPriority">
+          <option value="High">High</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="Low">Low</option>
+        </select>
+
+        <button id="addTaskButton"><i class="fas fa-plus"></i> Add Task</button>
+      </div>
+
+      <div class="sort-button-container">
+        <button id="sortButton" class="sort-button">Sort Tasks by Priority</button>
+      </div>
+       <button id="sortByDeadlineButton">Sort by Deadline</button>
+
+      <ul class="task-list" id="taskList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let tasks = [];
+let editingTaskId = null; // This will track if we're in edit mode
+
+async function fetchUsername() {
+  const response = await fetch("/api/get-username");
+  if (response.ok) {
+    const data = await response.json();
+    document.getElementById("usernameTitle").innerText = `Welcome back, ${data.name} !`;
+  }
+}
+
+// Fetch tasks from the server
+async function fetchTasks() {
+  const response = await fetch("/api/todos");
+  if (response.ok) {
+    tasks = await response.json();
+    renderTasks();
+  }
+}
+
+// Render tasks in the list
+function renderTasks() {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
+  tasks.forEach((task) => {
+    const li = document.createElement("li");
+    li.classList.add("task-item");
+    if (task.completed) {
+      li.classList.add("completed"); 
+    }
+    li.innerHTML = `
+      <div>
+        <input type="checkbox" onchange="toggleTaskCompletion('${task._id}')" ${task.completed ? "checked" : ""} />
+        <span><strong>${task.title}</strong> - ${task.description || "No description"}</span>
+        <div>Deadline: ${task.deadline || "N/A"}</div>
+        <div>Priority: <strong>${task.priority}</strong></div> <!-- Show priority -->
+        <div>Tags: <span>${task.tags.length > 0 ? task.tags.join(", ") : "No tags"}</span></div>
+        <button class="edit" onclick="editTask('${task._id}')">Edit</button>
+        <button onclick="confirmDeleteTask('${task._id}')">Delete</button>
+      </div>`;
+    taskList.appendChild(li);
+  });
+}
+
+// Function to add or update a task
+async function saveTask() {
+  const title = document.getElementById("taskTitle").value;
+  const description = document.getElementById("taskDescription").value;
+  const deadline = document.getElementById("taskDeadline").value;
+  const tags = document.getElementById("taskTags").value.split(",").map(tag => tag.trim());
+  const priority = document.getElementById("taskPriority").value;
+
+  if (editingTaskId) {
+    // Update an existing task
+    const response = await fetch(`/api/todos/${editingTaskId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, description, deadline, tags, priority }),
+    });
+    if (response.ok) {
+      editingTaskId = null; // Exit edit mode
+    }
+  } else {
+    // Add a new task
+    const response = await fetch("/api/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, description, deadline, tags, priority }),
+    });
+  }
+
+  // Clear the input fields after saving or updating
+  document.getElementById("taskTitle").value = "";
+  document.getElementById("taskDescription").value = "";
+  document.getElementById("taskDeadline").value = "";
+  document.getElementById("taskTags").value = "";
+  document.getElementById("taskPriority").value = "Medium";
+  
+  fetchTasks();
+}
+
+// Edit task
+function editTask(taskId) {
+  const task = tasks.find(t => t._id === taskId);
+  document.getElementById("taskTitle").value = task.title;
+  document.getElementById("taskDescription").value = task.description;
+  document.getElementById("taskDeadline").value = task.deadline;
+  document.getElementById("taskTags").value = task.tags.join(", ");
+  document.getElementById("taskPriority").value = task.priority;
+  editingTaskId = taskId; // Enter edit mode
+}
+
+// Delete task with confirmation
+async function confirmDeleteTask(taskId) {
+  if (confirm("Are you sure you want to delete this task?")) {
+    await fetch(`/api/todos/${taskId}`, { method: "DELETE" });
+    fetchTasks();
+  }
+}
+
+// Function to sort tasks by priority
+function sortTasksByPriority() {
+  tasks.sort((a, b) => {
+    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
+  renderTasks();
+}
+
+
+document.getElementById("sortButton").addEventListener("click", sortTasksByPriority);
+
+
+
+// Mark task as completed
+async function toggleTaskCompletion(taskId) {
+  const task = tasks.find(t => t._id === taskId);
+  const updatedTask = { ...task, completed: !task.completed };
+ 
+
+  await fetch(`/api/todos/${taskId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ completed: updatedTask.completed }),
+  });
+  task.completed = updatedTask.completed;
+
+  renderTasks();
+}
+
+document.getElementById("addTaskButton").addEventListener("click", saveTask);
+
+window.onload = async () => {
+  await fetchUsername();
+  await fetchTasks();
+  
+};
+
+// Check if there are any tasks due in the next 2 days
+function checkUpcomingDeadlines() {
+  const today = new Date();
+  const twoDaysFromNow = new Date();
+  twoDaysFromNow.setDate(today.getDate() + 2);
+
+  const upcomingTasks = tasks.filter(task => {
+    if (task.deadline) {
+      const taskDeadline = new Date(task.deadline);
+      return taskDeadline >= today && taskDeadline <= twoDaysFromNow;
+    }
+    return false;
+  });
+
+  if (upcomingTasks.length > 0) {
+    const taskTitles = upcomingTasks.map(task => task.title).join(", ");
+    alert(`Reminder: You have ${upcomingTasks.length} task(s) due soon: ${taskTitles}`);
+  }
+}
+
+// Function to sort tasks by deadline
+function sortTasksByDeadline() {
+  
+  tasks.sort((taskA, taskB) => {
+    const deadlineA = new Date(taskA.deadline);
+    const deadlineB = new Date(taskB.deadline);
+    return deadlineA - deadlineB; 
+  });
+
+  renderTasks();
+}
+
+
+document.getElementById("sortByDeadlineButton").addEventListener("click", sortTasksByDeadline);
+
+
+// Fetch tasks from the server
+async function fetchTasks() {
+  const response = await fetch("/api/todos");
+  if (response.ok) {
+    tasks = await response.json();
+    renderTasks();
+    checkUpcomingDeadlines(); // Check deadlines after tasks are fetched
+  }
+}
+
+window.onload = async () => {
+  await fetchUsername();
+  await fetchTasks();
+};
+
+
+  // Logout button functionality
+  document.getElementById("logoutButton").addEventListener("click", async () => {
+    try {
+      // Make a request to the logout endpoint
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // If the server responds with a redirect, navigate to the login page
+      if (response.redirected) {
+        window.location.href = response.url;
+      } else if (response.ok) {
+        window.location.href = "/login"; // Fallback redirect if not automatically redirected
+      } else {
+        alert("Logout failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  });
+
+
+
+  </script>
+</body>
+</html>

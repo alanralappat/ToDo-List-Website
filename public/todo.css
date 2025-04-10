@@ -1,0 +1,322 @@
+/* Universal reset for margin, padding, and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: cursive; /* Changed to a more reliable font */
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/BG1.jpeg");
+  background-color: #f2f2f2; /* Fallback background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; /* Prevents white space and scrolling */
+}
+
+/* Centered To-Do Container */
+.app {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #cc0856;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-top: 80px;
+  position: relative; /* Ensures correct positioning of the title and logout button */
+}
+
+
+.task-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two inputs side by side */
+  gap: 15px;
+  margin-bottom: 20px;
+  width: 100%; /* Ensure it's the same width as the main container */
+}
+
+.task-input input[type="text"],
+.task-input input[type="date"],
+.task-input select {
+  padding: 12px;
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 100%; /* Makes sure inputs take full width in the grid cell */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(9, 14, 74, 0.116);
+}
+
+/* Add Task Button */
+.task-input button {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: none;
+  background-color: #28c34c;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+  grid-column: span 2; /* Makes the button span the entire width */
+  margin-top: 15px;
+}
+
+/* Hover Effect for Add Task Button */
+.task-input button:hover {
+  background-color: #26873b;
+  transform: scale(1.05);
+}
+
+/* To-Do List Box */
+.todo-container {
+  background-color: #f4dae1;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-top: 40px; /* Creates space between the navbar and the todo list */
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+
+/* Heading */
+h1 {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 30px;
+  font-family: cursive;
+}
+
+.sort-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+}
+
+.sort-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: purple;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.sort-button:hover {
+  background-color: #490257;
+  transform: scale(1.05);
+}
+
+/* Style for the Sort by Deadline button */
+#sortByDeadlineButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: purple;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#sortByDeadlineButton:hover {
+  background-color: #490257;
+  transform: scale(1.05);
+}
+
+
+/* Task List */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; /* Make task list take full width */
+}
+
+/* Individual Task Items */
+.task-list li {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 22px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 2px solid #cce4ff;
+  border-radius: 8px;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Task Hover Effect */
+.task-list li:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Completed Task Styling */
+.task-list li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Task Buttons */
+.task-list li button {
+  padding: 10px 14px;
+  font-size: 1rem;
+  background-color: #dc3545;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-left: 5px;
+}
+
+.task-list li button:hover {
+  background-color: #b8202a;
+  transform: scale(1.05);
+}
+
+.task-list li button.edit {
+  background-color: #007bff;
+}
+
+.task-list li button.edit:hover {
+  background-color: #0056b3;
+}
+
+/* Task Text */
+.task-list li div,
+.task-list li span {
+  cursor: pointer;
+  flex: 1;
+  text-align: left;
+}
+
+.priority {
+  font-weight: bold;
+  color: #ff9800;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Deadline Text */
+.deadline {
+  font-size: 1rem;
+  color: #555;
+  margin-left: 5px;
+  font-style: normal;
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #faf8f9;
+  border-bottom: 2px solid #f4dae1;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Title on the left */
+.navbar .title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #070707;
+  margin-left: 10px;
+  margin-right: auto;
+  padding-left: 10px;
+}
+
+/* Navbar Content for logout button */
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Style for the dynamic username title */
+#usernameTitle {
+  color: #020202; 
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-left: 10px;
+  margin-right: auto;
+  padding-left: 10px;
+}
+
+/* Logout Button Styling */
+.logout-button {
+  background-color: #ff006a;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ;
+  margin-left: auto;
+}
+
+.logout-button:hover {
+  background-color: #f5074b;
+  transform: scale(1.04) ;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    max-width: 90%;
+    margin-top: 20px;
+  }
+
+  .task-input {
+    grid-template-columns: 1fr; /* Stack inputs vertically on small screens */
+  }
+
+  .task-input button {
+    width: 100%; /* Button takes full width on smaller screens */
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  #usernameTitle {
+    font-size: 1.5rem;
+    margin-right: 0;
+  }
+
+  .task-list li {
+    flex-direction: column;
+    padding: 10px;
+  }
+}

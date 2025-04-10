@@ -1,0 +1,90 @@
+/* Body Styles */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+}
+
+body, html {
+    background-image: url("/BG1.jpeg"); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    font-family: cursive; 
+    color: #333; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    height: 100%; 
+    padding: 20px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Heading Styles */
+h2 {
+    position: absolute;
+    top: 70px;
+    font-size: 43px;
+    color: #333;
+    font-weight: 600;/* Space below the heading */
+}
+
+/* Form Styles */
+form {
+    max-width: 400px;
+    height: 290px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 50px;
+    transition: transform 0.3s ease;
+    margin-left: 40px;
+}
+
+/* Input Field Styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%; 
+    padding: 12px;
+    margin: 12px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    transition: border-color 0.3s ease; 
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border-color: #007bff; 
+    outline: none; 
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Submit Button Styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff006a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 12px;
+}
+
+/* Submit Button Hover Effect */
+input[type="submit"]:hover {
+    background-color: #f5074b; /* Darker blue on hover */
+    transform: scale(1.03);
+}
+
+

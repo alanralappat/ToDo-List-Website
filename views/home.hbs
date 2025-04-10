@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/home.css">
+  <title>Home Page</title>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Diddy's Party</div>
+    <div class="nav-links">
+      <a href="/view-lists">My Lists</a>
+      <a href="/new-list">New List</a>
+      <a href="/todo.html">To-Do List</a> <!-- Link to the To-Do List Page -->
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="home-container">
+    <div class="welcome-message">
+      <h1>Welcome back, {{userName}}!</h1>
+    </div>
+
+    <div class="todo-lists">
+      {{#if lists.length}}
+        <h2>Your To-Do Lists</h2>
+        <ul>
+          {{#each lists}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <h2>No List Created</h2>
+      {{/if}}
+    </div>
+  </div>
+</body>
+</html>

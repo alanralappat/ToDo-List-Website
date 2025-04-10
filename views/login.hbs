@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/login.css">
+
+    <title>Login Page</title>
+</head>
+<body>
+    
+
+    <h2>Login Here!</h2>
+
+    <form action="/login" method="post">
+    
+    <input type="text" name="name" placeholder="Enter Name">
+
+     <input type="password" name="password" placeholder="Enter Password">
+
+     <input type="submit">
+    
+    </form>
+
+    <script>
+        // Check if `signup=success` is in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('signup') === 'success') {
+            alert("You have been signed up successfully!");
+        }
+
+            const errorMessage = "{{errorMessage}}"
+            if (errorMessage){
+                alert(errorMessage)
+            }
+        
+    </script>
+
+    <a href="/signup" class="signup-link">New Here? Make a new account</a>
+</body>
+</html>

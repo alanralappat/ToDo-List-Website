@@ -1,0 +1,134 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+    
+  }
+  
+  /* Navbar styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #090909;
+  }
+  
+  .nav-links a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #f6f3f5;
+  }
+  
+  .signup-btn {
+    background-color: #ff006a;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-btn:hover {
+    background-color: #f5074b;
+  }
+  
+  /* Hero Section styling */
+  .hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem 2rem;
+    background-image: url("/BG1.jpeg"); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+  }
+  
+  .hero-content {
+    max-width: 45%;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-btn {
+    background-color: #ff006a;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-btn:hover {
+    background-color: #f5074b;
+  }
+  
+  .hero-image img {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Features Section styling */
+  .features-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #f8f9fa;
+  }
+  
+  .features-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .feature {
+    max-width: 250px;
+    text-align: center;
+  }
+  
+  .feature h3 {
+    font-size: 1.2rem;
+    color: #f2084f;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature p {
+    color: #666;
+    font-size: 1rem;
+  }
+  
